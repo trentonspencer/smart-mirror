@@ -1,2 +1,3 @@
-#API KEY be89364f03bdba5443ec8104b8b88ea5
-#CITY ID 4235193
+import secrets
+
+print(secrets.keys["WEATHER_APIKEY"])
