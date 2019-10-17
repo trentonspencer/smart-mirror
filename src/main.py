@@ -5,7 +5,7 @@ from weather import *
 class Desktop(Canvas):
 	def __init__(self, master=None):
 		Canvas.__init__(self, master, bd=0, highlightthickness=0, background="white")
-		self.wallpaper = PhotoImage(file="./res/desktop/wallpaper.png")
+		self.wallpaper = PhotoImage(file="./res/desktop/wallpaper2.png")
 		self.create_image(0, 0, anchor="nw", image=self.wallpaper)
 		self.init_components()
 		self.pack(fill="both", expand=True)
@@ -21,7 +21,7 @@ class Desktop(Canvas):
 		self.weather.init_components()
 		self.weather.pack(expand=1)
 		self.weather.make_draggable()
-		#self.weather.update() still needs to be written
+		self.weather.update() 
 
 root = Tk()
 root.attributes("-fullscreen", False)
