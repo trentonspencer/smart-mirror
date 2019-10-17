@@ -1,5 +1,6 @@
 from tkinter import *
 from clock import *
+from weather import *
 
 class Desktop(Canvas):
 	def __init__(self, master=None):
@@ -16,6 +17,12 @@ class Desktop(Canvas):
 		self.clock.pack(expand=1)
 		self.clock.make_draggable()
 		self.clock.update()
+
+		self.weather = Weather(self, background='black')
+		self.weather.init_components()
+		self.weather.pack(expand=1)
+		self.weather.make_draggable()
+		#self.weather.update() still needs to be written
 
 root = Tk()
 root.attributes("-fullscreen", False)
