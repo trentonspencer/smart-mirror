@@ -13,7 +13,9 @@ class Widget(Canvas, ABC):
 		pass
 
 	def make_draggable(self):
-		self._drag_component = Canvas(self, bg="white", bd=0, highlightthickness=0, height=16)
+		self._drag_bar = Canvas(self, bg="white", bd=0, highlightthickness=0, height=1)
+		self._drag_component = Canvas(self, bg="#000", bd=0, highlightthickness=0, height=16)
+		self._drag_bar.pack(fill=BOTH)
 		self._drag_component.pack(fill=BOTH)
 		self._drag_component.bind("<Button-1>", Widget.on_start_drag)
 		self._drag_component.bind("<B1-Motion>", Widget.on_dragged)
