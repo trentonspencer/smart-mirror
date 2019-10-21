@@ -21,7 +21,7 @@ class Desktop(Canvas):
 		self.weather.init_components()
 		self.weather.pack(expand=1)
 		self.weather.make_draggable()
-		self.weather.update() 
+		self.weather.update()
 
 root = Tk()
 root.attributes("-fullscreen", False)
