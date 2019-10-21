@@ -1,7 +1,7 @@
 from tkinter import *
 from clock import *
 from weather import *
-
+from gallery import *
 class Desktop(Canvas):
 	def __init__(self, master=None):
 		Canvas.__init__(self, master, bd=0, highlightthickness=0, background="white")
@@ -22,6 +22,17 @@ class Desktop(Canvas):
 		self.weather.pack(expand=1)
 		self.weather.make_draggable()
 		self.weather.update()
+
+		#Following lines in def are for testing gallery
+		self.gallery = Toplevel(bg='black')
+		self.gallery.attributes("-fullscreen", False)
+		self.gallery.wm_attributes("-topmost", 1)
+		self.gallery.gallery = gallery(master=self.gallery)
+
+
+
+
+
 
 root = Tk()
 root.attributes("-fullscreen", False)
