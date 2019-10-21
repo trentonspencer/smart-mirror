@@ -11,13 +11,13 @@ class Desktop(Canvas):
 		self.pack(fill="both", expand=True)
 
 	def init_components(self):
-		self.clock = Clock(self, background="black")
+		self.clock = Clock(self, background="black", bd=0, highlightthickness=0)
 		self.clock.init_components()
 		self.clock.pack(expand=1)
 		self.clock.make_draggable()
 		self.clock.update()
 
-		self.weather = Weather(self, background='black')
+		self.weather = Weather(self, background='black', bd=0, highlightthickness=0)
 		self.weather.init_components()
 		self.weather.pack(expand=1)
 		self.weather.make_draggable()

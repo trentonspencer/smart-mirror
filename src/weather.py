@@ -16,9 +16,9 @@ class Weather(Widget):
 	def update(self):
 		self.request.requestdata()
 		print(self.request.temp)
-		if self.label1["text"] != self.request.temp or self.label2["text"] != self.request.description:
+		if self.label1["text"] != self.request.temp or self.label2["text"] != self.request.weather:
 			self.label1.config(text=self.request.temp+'°')
-			self.label2.config(text=self.request.description)
+			self.label2.config(text=self.request.weather)
 		if self.iconcheck != self.request.icon:
 			self.request.requesticon(self.request.icon)
 			self.iconcheck = self.request.icon 
