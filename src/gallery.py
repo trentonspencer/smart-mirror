@@ -1,23 +1,30 @@
 from tkinter import *
 import os
+import math
 from PIL import Image, ImageTk
 class gallery(Frame):
 	def __init__(self, master=None):
 		Frame.__init__(self, master, width=1920, height=1080, bd=2, highlightthickness=0, background="black")
 		self.label = Label(self, bg="black", foreground="white", font=("mono", 24, "bold"), text="Gallery")
 		self.label.pack(anchor="n")
-		self.pack()
+		self.pack(fill=BOTH, expand=True)
 
 
-		self.gallery_frame= Frame(self, width=1000, height=540, background="black", relief=SUNKEN)
-		self.gallery_frame.pack(anchor="w", fill=X, expand=1, side=LEFT)
-		self.gallery_frame.grid_rowconfigure(0, weight=1)
-		self.gallery_frame.grid_columnconfigure(0, weight=1)
-		self.scrollbar = Scrollbar(self.gallery_frame)
-		self.scrollbar.grid(row=0, column=1, sticky=N+S)
-		self.gallery_canvas = Canvas(self.gallery_frame, background="black", scrollregion=(0, 0, 2000, 2000), yscrollcommand=self.scrollbar.set)
-		self.gallery_canvas.grid(row=0, column=0, sticky=N+S+E+W)
+		self.gallery_canvas = Canvas(self, width=1920, height=1080, background="black", bd=0, highlightthickness=0)
+		self.gallery_canvas.pack(anchor="w", fill=BOTH, expand=1, side=LEFT)
+		self.gallery_canvas.grid_rowconfigure(0, weight=1)
+		self.gallery_canvas.grid_columnconfigure(0, weight=1)
+		numberofrows = math.ceil(len(os.listdir("./res/gallery/"))/3)
+		self.gallery_frame = Frame(self.gallery_canvas, background="black")
+		self.gallery_canvas.create_window((0,0),window=self.gallery_frame, anchor='w', width=960, height=155*numberofrows)
+		self.scrollbar = Scrollbar(self.gallery_canvas)
+		self.scrollbar.grid(row=0, column=0, sticky=N+W+S)
+		self.gallery_canvas.config(yscrollcommand=self.scrollbar.set)
 		self.scrollbar.config(command = self.gallery_canvas.yview)
+
+
+
+		#self.openimage_canvas.pack(anchor="e", side=RIGHT)
 		# self.photo = Image.open("./res/gallery/thisissand.png")
 		# self.photo = self.photo.resize((128, 64), Image.ANTIALIAS)
 		# self.image = ImageTk.PhotoImage(self.photo)
@@ -35,11 +42,30 @@ class gallery(Frame):
 		for filename in os.listdir("./res/gallery/"):
 			photo = Image.open("./res/gallery/" + filename)
 			thumbnail = ImageTk.PhotoImage(photo.resize((280, 155), Image.ANTIALIAS))
-			label = Label(self.gallery_canvas, image=thumbnail, height=155, width=280, background="black")
+			label = Label(self.gallery_frame, image=thumbnail, height=155, width=280, background="black", bd=0, highlightthickness=0)
 			label.thumbnail = thumbnail
+			label.image=filename
+			label.bind("<Button-1>", self.openimage)
 			label.grid(row=y, column=x)
 
 			x = x+1
 			if x >= cols:
 				x = 0
 				y = y+1
+
+		self.gallery_canvas.config(scrollregion=self.gallery_canvas.bbox(ALL))
+
+	def openimage(self, event):
+		print(event.widget.image)
+		self.openimage_canvas = Toplevel(Canvas(self, width=1920, height=1080, background="black", bd=0, highlightthickness=0), bg="black")
+		photo = Image.open("./res/gallery/" + event.widget.image)
+		image = ImageTk.PhotoImage(photo.resize((1920, 1080), Image.ANTIALIAS))
+		label = Label(self.openimage_canvas, image=image, height=1080, width=1920, background="black", bd=0, highlightthickness=0)
+		label.image = image
+		label.grid(row=0, column=0)
+		self.openimage_canvas.attributes("-fullscreen", True)
+		self.openimage_canvas.wm_attributes("-topmost", 1)
+		label.bind("<Button-3>", self.destroyimage)
+
+	def destroyimage(self, event):
+		self.openimage_canvas.destroy()

@@ -29,6 +29,8 @@ class Desktop(Canvas):
 		self.gallery.attributes("-fullscreen", False)
 		self.gallery.wm_attributes("-topmost", 1)
 		self.gallery.gallery = gallery(master=self.gallery)
+		self.gallery.geometry("1920x1080")
+
 
 root = Tk()
 root.attributes("-fullscreen", False)
