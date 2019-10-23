@@ -2,7 +2,7 @@ from tkinter import *
 from clock import *
 from weather import *
 from gallery import *
-
+from appbar import *
 class Desktop(Canvas):
 	def __init__(self, master=None):
 		Canvas.__init__(self, master, bd=0, highlightthickness=0, background="white")
@@ -24,12 +24,16 @@ class Desktop(Canvas):
 		self.weather.make_draggable()
 		self.weather.update()
 
+		self.appbar = appbar(self, background="black", bd=0, highlightthickness=0)
+		self.appbar.init_components()
+		self.appbar.pack(expand=1)
+		self.appbar.make_draggable()
 		#Following lines in def are for testing gallery
-		self.gallery = Toplevel(bg="black")
-		self.gallery.attributes("-fullscreen", False)
-		self.gallery.wm_attributes("-topmost", 1)
-		self.gallery.gallery = gallery(master=self.gallery)
-		self.gallery.geometry("1920x1080")
+		#self.gallery = Toplevel(bg="black")
+		#self.gallery.attributes("-fullscreen", False)
+		#self.gallery.wm_attributes("-topmost", 1)
+		#self.gallery.gallery = gallery(master=self.gallery)
+		#self.gallery.geometry("1920x1080")
 
 
 root = Tk()
