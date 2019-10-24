@@ -67,7 +67,7 @@ class gallery(Frame):
 		image = ImageTk.PhotoImage(photo.resize((width, height), Image.ANTIALIAS))
 		label = Label(self.openimage_canvas, image=image, width=width, height=height, background="black", bd=0, highlightthickness=0)
 		label.image = image
-		label.grid(row=0, column=0)
+		label.place(x=self.winfo_screenwidth()/2, y=self.winfo_screenheight()/2, anchor="center")
 		self.openimage_canvas.attributes("-fullscreen", True)
 		self.openimage_canvas.wm_attributes("-topmost", 1)
 		label.bind("<Button-3>", self.destroyimage)
