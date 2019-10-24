@@ -3,6 +3,7 @@ from Requestweather import *
 from widget import *
 import time
 from PIL import Image, ImageTk
+
 class Weather(Widget):
 	pass
 
@@ -16,10 +17,10 @@ class Weather(Widget):
 		#self.label_humidity.pack(anchor="e")
 		self.iconcheck = None
 		self.settings_photo = Image.open("./res/AppIcons/cog.png")
-		self.settings_icon = ImageTk.PhotoImage(self.settings_photo.resize((48, 48), Image.ANTIALIAS))
-		self.settings_label = Label(self, image=self.settings_icon, height=48, width=48, background="black", bd=0, highlightthickness=0)
+		self.settings_icon = ImageTk.PhotoImage(self.settings_photo.resize((12, 12), Image.ANTIALIAS))
+		self.settings_label = Label(self, image=self.settings_icon, height=12, width=12, background="black", bd=0, highlightthickness=0)
 		self.settings_icon.thumbnail = self.settings_icon
-		self.settings_label.place(x=300, y=0) #Placement works for now, must be changed to be based off of canvas size
+		self.settings_label.place(x=350, y=0) #Placement works for now, must be changed to be based off of canvas size
 		self.settings_label.bind("<Button-1>", self.settings)
 	
 	def update(self):
@@ -47,10 +48,20 @@ class Weather(Widget):
 		self.settings_canvas.bind("<Button-3>",self.settings_destroy)
 		self.enter_town_label = Label(self.settings_canvas, text="Town", font=("mono", 24, "bold"), background="black", foreground="white")
 		self.enter_town = Entry(self.settings_canvas)
-		self.enter_town_label.grid(row=0, column=0)
-		self.enter_town.grid(row=0, column=1)
+		self.enter_town_label.grid(row=0, column=0, sticky="w")
+		self.enter_town.grid(row=0, column=1, sticky="w")
 		#add way to choose what displays
-
+		#Displays
+		self.select_display_label = Label(self.settings_canvas, text="Display", font=("mono", 24, "bold"), background="black", foreground="white")
+		self.select_display_label.grid(row=1, column=0, sticky="w")
+		Humidity = IntVar()
+		Temp = IntVar()
+		Windspeed = IntVar()
+		Weather = IntVar()
+		self.display_temp = Checkbutton(self.settings_canvas, text="Temperature", variable=Temp, font=("mono", 24, "bold"), background="black", foreground="white").grid(row=3, column=0, sticky=W)
+		self.display_weather = Checkbutton(self.settings_canvas, text="Weather", variable=Weather, font=("mono", 24, "bold"), background="black", foreground="white").grid(row=3, column=1, sticky=W)
+		self.display_windspeed = Checkbutton(self.settings_canvas, text="Windspeed", variable=Windspeed, font=("mono", 24, "bold"), background="black", foreground="white").grid(row=4, column=0, sticky=W)
+		self.display_humidity = Checkbutton(self.settings_canvas, text="Humidity", variable=Humidity, font=("mono", 24, "bold"), background="black", foreground="white").grid(row=4, column=1, sticky=W)
 	def settings_destroy(self, event):
 		self.settings_canvas.destroy()
 #request = Weather()
