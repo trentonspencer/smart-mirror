@@ -10,7 +10,7 @@ class gallery(Frame):
 		self.pack(fill=BOTH, expand=True)
 
 
-		self.gallery_canvas = Canvas(self, width=1920, height=1080, background="black", bd=0, highlightthickness=0)
+		self.gallery_canvas = Canvas(self, width=self.winfo_screenwidth(), height=self.winfo_screenheight(), background="black", bd=0, highlightthickness=0)
 		self.gallery_canvas.pack(anchor="w", fill=BOTH, expand=1, side=LEFT)
 		self.gallery_canvas.grid_rowconfigure(0, weight=1)
 		self.gallery_canvas.grid_columnconfigure(0, weight=1)
@@ -57,10 +57,15 @@ class gallery(Frame):
 
 	def openimage(self, event):
 		print(event.widget.image)
-		self.openimage_canvas = Toplevel(Canvas(self, width=1920, height=1080, background="black", bd=0, highlightthickness=0), bg="black")
+		self.openimage_canvas = Toplevel(Canvas(self, width=self.winfo_screenwidth(), height=self.winfo_screenheight(), background="black", bd=0, highlightthickness=0), bg="black")
 		photo = Image.open("./res/gallery/" + event.widget.image)
-		image = ImageTk.PhotoImage(photo.resize((1920, 1080), Image.ANTIALIAS))
-		label = Label(self.openimage_canvas, image=image, height=1080, width=1920, background="black", bd=0, highlightthickness=0)
+		width, height = photo.size
+		if width > self.winfo_screenwidth():
+			width = self.winfo_screenwidth()
+		if height > self.winfo_screenheight():
+			height = self.winfo_screenheight()
+		image = ImageTk.PhotoImage(photo.resize((width, height), Image.ANTIALIAS))
+		label = Label(self.openimage_canvas, image=image, width=width, height=height, background="black", bd=0, highlightthickness=0)
 		label.image = image
 		label.grid(row=0, column=0)
 		self.openimage_canvas.attributes("-fullscreen", True)

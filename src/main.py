@@ -3,14 +3,14 @@ from clock import *
 from weather import *
 from gallery import *
 from appbar import *
-from camera_canvas import *
+#from camera_canvas import *
 
-class Desktop(CameraCanvas):
+class Desktop(Canvas):
 	def __init__(self, master=None):
-		#CameraCanvas.__init__(self, master, bd=0, highlightthickness=0, background="white")
-		CameraCanvas.__init__(self, master)
-		#self.wallpaper = PhotoImage(file="./res/desktop/wallpaper2.png")
-		#self.create_image(0, 0, anchor="nw", image=self.wallpaper)
+		Canvas.__init__(self, master, bd=0, highlightthickness=0, background="white")
+		#CameraCanvas.__init__(self, master)
+		self.wallpaper = PhotoImage(file="./res/desktop/wallpaper2.png")
+		self.create_image(0, 0, anchor="nw", image=self.wallpaper)
 		self.init_components()
 		self.pack(fill="both", expand=True)
 		self.update()
