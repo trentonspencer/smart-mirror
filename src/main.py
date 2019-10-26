@@ -39,12 +39,16 @@ class Desktop(Canvas):
 		#self.gallery.gallery = gallery(master=self.gallery)
 		#self.gallery.geometry("1920x1080")
 
+	def save_location_and_quit(self, event):
+		print(self.clock.winfo_x())
+		self.destroy()
 
 root = Tk()
 root.attributes("-fullscreen", False)
 root["background"] = "black"
 
 desktop = Desktop(master=root)
+desktop.bind("<Button-3>",desktop.save_location_and_quit)
 desktop.mainloop()
 
-root.mainloop()
+root.mainloop() 
